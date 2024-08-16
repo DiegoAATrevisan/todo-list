@@ -1,55 +1,32 @@
 import { useEffect, useState } from 'react';
 import './style.css';
+import { taskProps } from '../../@types/tasks';
 
-type TodoProps = {
-    id: number,
-    titulo: string
+type TaskListProps = {
+    tasks: taskProps[]
+    onChange: (tasks: taskProps[]) => void
 }
 
-const TodoList = () => {
-    const [getTodos, setTodos] = useState<TodoProps[]>([
-        {
-            id: 1,
-            titulo: "tarefa 1"
-        },
-        {
-            id: 2,
-            titulo: "tarefa 2"
-        },
-        {
-            id: 3,
-            titulo: "tarefa 3"
-        },
-        {
-            id: 4,
-            titulo: "tarefa 4"
-        },
-        {
-            id: 5,
-            titulo: "tarefa 5"
-        },
-        {
-            id: 6,
-            titulo: "tarefa 6"
-        }
-    ])
+const TodoList = ({ tasks, onChange }: TaskListProps) => {
 
-    useEffect(() => { }, [getTodos])
+    useEffect(() => { }, [tasks])
 
 
-    const concluiTodo = (idTodo: number) => {
-        const tmpTodos: TodoProps[] = getTodos.filter((todo: TodoProps) => todo.id !== idTodo)
-        setTodos(tmpTodos)
+    const concluiTodo = (idTask: number) => {
+        const tmpTasks: taskProps[] = tasks.filter((task: taskProps) => task.id !== idTask)
+        onChange(tmpTasks)
     }
 
     return (
         <div>
             <h1>Lista de Tarefas</h1>
             <ul>
-                {getTodos.map((valor: TodoProps) => (
-                    <li key={valor.id}>
-                        <input type="checkbox" onClick={() => concluiTodo(valor.id)} />{valor.titulo}
-                    </li>
+                {tasks.map((value: taskProps) => (
+                    <div className='listTasks'>
+                        <li key={value.id}>
+                            <input type="checkbox" onClick={() => concluiTodo(value.id)} />{value.title}
+                        </li>
+                    </div>
                 ))}
             </ul>
         </div>
