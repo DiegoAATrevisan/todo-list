@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './styles.css';
+import { taskProps } from '../../@types/tasks';
 
 
-type createtaskProps = {
-    onSubmit: (tituloTarefa: string) => void;
+type createTaskProps = {
+    onSubmit: (tituloTarefa: taskProps) => void;
 }
 
-const CriarTodo = ({ onSubmit }: createtaskProps) => {
-    const [getTitulo, setTitulo] = useState<string>('');
+const CriarTodo = ({ onSubmit }: createTaskProps) => {
+    const [getTitulo, setTitulo] = useState<taskProps>({ id: 0, title: "" });
 
     return (
         <div>
@@ -15,10 +16,9 @@ const CriarTodo = ({ onSubmit }: createtaskProps) => {
             <input type="text"
                 placeholder='Inserir tarefa'
                 onChange={(event) => {
-                    setTitulo(event.target.value);                    
+                    setTitulo({ ...getTitulo, title: event.target.value })
                 }}
             />
-            <h3>{getTitulo}</h3>
             <button className='ComicBtn' onClick={() => onSubmit(getTitulo)}>Enviar</button>
         </div>
     )

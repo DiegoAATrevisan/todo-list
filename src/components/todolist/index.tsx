@@ -3,25 +3,25 @@ import './style.css';
 import { taskProps } from '../../@types/tasks';
 
 type TaskListProps = {
-    tasks: taskProps[]
-    onChange: (tasks: taskProps[]) => void
+    getTasks: taskProps[]
+    setTasks: (tasks: taskProps[]) => void
 }
 
-const TodoList = ({ tasks, onChange }: TaskListProps) => {
+const TodoList = ({ getTasks, setTasks }: TaskListProps) => {
 
-    useEffect(() => { }, [tasks])
+    useEffect(() => { }, [getTasks])
 
 
     const concluiTodo = (idTask: number) => {
-        const tmpTasks: taskProps[] = tasks.filter((task: taskProps) => task.id !== idTask)
-        onChange(tmpTasks)
+        const tmpTasks: taskProps[] = getTasks.filter((task: taskProps) => task.id !== idTask)
+        setTasks(tmpTasks)
     }
 
     return (
         <div>
             <h1>Lista de Tarefas</h1>
             <ul>
-                {tasks.map((value: taskProps) => (
+                {getTasks.map((value: taskProps) => (
                     <div className='listTasks'>
                         <li key={value.id}>
                             <input type="checkbox" onClick={() => concluiTodo(value.id)} />{value.title}
