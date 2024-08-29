@@ -28,7 +28,6 @@ const Router = () => {
     }
 
     const renderHeader = () => (
-
         <div>
             <button onClick={() => setRoute(routes.home)}>Início</button>
             <button onClick={() => setRoute(routes.todo)}>Tasks</button>

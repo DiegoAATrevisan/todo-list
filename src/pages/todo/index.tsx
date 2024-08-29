@@ -4,9 +4,15 @@ import TodoList from "../../components/todolist";
 import { taskProps } from "../../@types/tasks";
 import './styles.css';
 
+enum TaskPages {
+    'createTask' = 'createTask',
+    'todoList' = 'todoList'
+}
 
 const Todo = () => {
     const [getTasks, setTasks] = useState<taskProps[]>([])
+
+    const [getActualPage, setActualPage] = useState<TaskPages>(TaskPages.todoList)
 
     useEffect(() => console.log({ getTasks }, [getTasks]))
     const handleTaskCreation = (title: string) => {
@@ -17,21 +23,52 @@ const Todo = () => {
         setTasks(tmpTasks);
     }
 
+    const renderPage = () => {
+        switch (getActualPage) {
+            case TaskPages.createTask:
+                return (
+                    <CriarTodo onSubmit={(newTask: taskProps) => {
+                        const id: number = getTasks.length + 1
+                        newTask.id = id
+                        const tmpTasks: taskProps[] = [...getTasks, newTask]
+                        setTasks(tmpTasks)
+                        // setActualPage(TaskPages.todoList)
+                    }} />
+                )
+                break;
+            case TaskPages.todoList:
+                return (
+                    <TodoList
+                        getTasks={getTasks}
+                        setTasks={(newTaskList: taskProps[]) => setTasks(newTaskList)}
+                    />
+                )
+                break;
+            default:
+                return (
+                    <TodoList
+                        getTasks={getTasks}
+                        setTasks={(newTaskList: taskProps[]) => setTasks(newTaskList)}
+                    />
+                )
+        }
+    }
+
+    const renderButtons = () => {
+        return (
+            <div className='buttons'>
+                <button onClick={() => setActualPage(TaskPages.createTask)}>Criar Tarefa</button>
+                <button onClick={() => setActualPage(TaskPages.todoList)}>Listar Tarefas</button>
+            </div>
+        )
+    }
+
+
     return (
         <div>
-            <CriarTodo onSubmit={(newTask: taskProps) => {
-                const id: number = getTasks.length + 1
-                newTask.id = id
-                const tmpTasks: taskProps[] = [...getTasks, newTask]
-                setTasks(tmpTasks)
-            }} />
-            <TodoList
-                getTasks={getTasks}
-                setTasks={(newTaskList: taskProps[]) => setTasks(newTaskList)}
-            />
-
+            {renderButtons()}
+            {renderPage()}
         </div>
-
     )
 
 }
