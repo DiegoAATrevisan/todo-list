@@ -1,4 +1,3 @@
-import React from "react";
 
 
 const Home = () => {
@@ -20,7 +19,6 @@ const Home = () => {
             Revisão e Atualização: Regularmente, você pode revisar e atualizar a lista, adicionando novas tarefas, reordenando prioridades ou removendo tarefas concluídas ou que não são mais necessárias.<br />
         </div>
     )
-
 }
 
 

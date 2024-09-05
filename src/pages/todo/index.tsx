@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CriarTodo from "../../components/createTask";
 import TodoList from "../../components/todolist";
 import { taskProps } from "../../@types/tasks";
 import './styles.css';
+import { ContextoTarefas } from "../../context/contextTodo";
 
 enum TaskPages {
     'createTask' = 'createTask',
@@ -10,6 +11,7 @@ enum TaskPages {
 }
 
 const Todo = () => {
+    const tasks = useContext(ContextoTarefas)
     const [getTasks, setTasks] = useState<taskProps[]>([])
 
     const [getActualPage, setActualPage] = useState<TaskPages>(TaskPages.todoList)
