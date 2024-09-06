@@ -5,6 +5,8 @@ import Todo from './pages/todo';
 import Home from './pages/home';
 import { ContextoTema } from './context/contextTema';
 import { ContextoTarefas } from './context/contextTodo';
+import { FirebaseContext } from './context/contexFirebase';
+import { db, auth } from './firebaseConfig';
 
 
 function App() {
@@ -25,18 +27,20 @@ function App() {
 
   return (
     <ContextoTema.Provider value="Dark">
-      <Router>
-        {renderButtons()}
-        <Routes>
-          <Route path="/" element={<Home></Home>} />
-          <Route path="/todo" element={
-            <ContextoTarefas.Provider value={[]}>
-              <Todo></Todo>
-            </ContextoTarefas.Provider>
-          } />
-          <Route path="/sobre" element={<Sobre></Sobre>} />
-        </Routes>
-      </Router>
+      <FirebaseContext.Provider value={{ db, auth }}>
+        <Router>
+          {renderButtons()}
+          <Routes>
+            <Route path="/" element={<Home></Home>} />
+            <Route path="/todo" element={
+              <ContextoTarefas.Provider value={[]}>
+                <Todo></Todo>
+              </ContextoTarefas.Provider>
+            } />
+            <Route path="/sobre" element={<Sobre></Sobre>} />
+          </Routes>
+        </Router>
+      </FirebaseContext.Provider>
     </ContextoTema.Provider>
   );
 }
