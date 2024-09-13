@@ -12,7 +12,7 @@ enum TaskPages {
 
 const Todo = () => {
     const tasks = useContext(ContextoTarefas)
-    const [getTasks, setTasks] = useState<taskProps[]>([])
+    const [getTasks, setTasks] = useState<taskProps[]>(tasks)
 
     const [getActualPage, setActualPage] = useState<TaskPages>(TaskPages.todoList)
 
@@ -34,6 +34,7 @@ const Todo = () => {
                         newTask.id = id
                         const tmpTasks: taskProps[] = [...getTasks, newTask]
                         setTasks(tmpTasks)
+                        
                         // setActualPage(TaskPages.todoList)
                     }} />
                 )

@@ -28,18 +28,18 @@ function App() {
   return (
     <ContextoTema.Provider value="Dark">
       <FirebaseContext.Provider value={{ db, auth }}>
-        <Router>
-          {renderButtons()}
-          <Routes>
-            <Route path="/" element={<Home></Home>} />
-            <Route path="/todo" element={
-              <ContextoTarefas.Provider value={[]}>
+        <ContextoTarefas.Provider value={[]}>
+          <Router>
+            {renderButtons()}
+            <Routes>
+              <Route path="/" element={<Home></Home>} />
+              <Route path="/todo" element={
                 <Todo></Todo>
-              </ContextoTarefas.Provider>
-            } />
-            <Route path="/sobre" element={<Sobre></Sobre>} />
-          </Routes>
-        </Router>
+              } />
+              <Route path="/sobre" element={<Sobre></Sobre>} />
+            </Routes>
+          </Router>
+        </ContextoTarefas.Provider>
       </FirebaseContext.Provider>
     </ContextoTema.Provider>
   );
