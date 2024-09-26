@@ -3,7 +3,8 @@ import CriarTodo from "../../components/createTask";
 import TodoList from "../../components/todolist";
 import { taskProps } from "../../@types/tasks";
 import './styles.css';
-import { ContextoTarefas } from "../../context/contextTodo";
+import { ContextTasks } from "../../context/contextTodo";
+import { useTodo } from "../../hook/useTodo";
 
 enum TaskPages {
     'createTask' = 'createTask',
@@ -11,8 +12,9 @@ enum TaskPages {
 }
 
 const Todo = () => {
-    const tasks = useContext(ContextoTarefas)
-    const [getTasks, setTasks] = useState<taskProps[]>(tasks)
+    const todoService = useTodo()
+    const tasks = useContext(ContextTasks)
+    const [getTasks, setTasks] = useState<taskProps[]>(todoService.get());
 
     const [getActualPage, setActualPage] = useState<TaskPages>(TaskPages.todoList)
 

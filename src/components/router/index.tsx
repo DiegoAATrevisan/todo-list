@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Todo from "../todo";
-import Home from "../home";
-import Sobre from "../sobre";
+import Todo from "../../pages/todo";
+import Home from "../../pages/home";
+import Sobre from "../../pages/sobre";
 
 enum routes {
     home = "home",

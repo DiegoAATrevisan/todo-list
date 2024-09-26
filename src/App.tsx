@@ -4,12 +4,16 @@ import Sobre from './pages/sobre';
 import Todo from './pages/todo';
 import Home from './pages/home';
 import { ContextoTema } from './context/contextTema';
-import { ContextoTarefas } from './context/contextTodo';
+import { ContextTasks } from './context/contextTodo';
 import { FirebaseContext } from './context/contexFirebase';
 import { db, auth } from './firebaseConfig';
+import { Api } from './utils/api/api';
+import { TodoService } from './utils/TodoService';
 
 
 function App() {
+  const api: Api = new Api(db, auth);
+  const todoService = new TodoService()
   const renderButtons = () => {
     return (
       <div className='App'>
@@ -27,8 +31,8 @@ function App() {
 
   return (
     <ContextoTema.Provider value="Dark">
-      <FirebaseContext.Provider value={{ db, auth }}>
-        <ContextoTarefas.Provider value={[]}>
+      <FirebaseContext.Provider value={{ api }}>
+        <ContextTasks.Provider value={{ todoService }}>
           <Router>
             {renderButtons()}
             <Routes>
@@ -39,7 +43,7 @@ function App() {
               <Route path="/sobre" element={<Sobre></Sobre>} />
             </Routes>
           </Router>
-        </ContextoTarefas.Provider>
+        </ContextTasks.Provider>
       </FirebaseContext.Provider>
     </ContextoTema.Provider>
   );

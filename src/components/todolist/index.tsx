@@ -21,10 +21,10 @@ const TodoList = ({ getTasks, setTasks }: TaskListProps) => {
         <div>
             <h1>Lista de Tarefas</h1>
             <ul>
-                {getTasks.map((value: taskProps) => (
+                {getTasks.map((task: taskProps) => (
                     <div className='listTasks'>
-                        <li key={value.id}>
-                            <input type="checkbox" onClick={() => concluiTodo(value.id)} />{value.title}
+                        <li key={task.id}>
+                            <input type="checkbox" onClick={() => concluiTodo(task.id)} />{task.title}
                         </li>
                     </div>
                 ))}
