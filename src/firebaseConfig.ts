@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import config from './firebaseConfig.json'
 
 const firebaseConfig = config.firebaseConfig
@@ -13,14 +13,4 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-
-
-// rules_version = '2';
-
-// service cloud.firestore {
-//     match / databases / { database } / documents {
-//         match / { document=**} {
-//       allow read, write: if false;
-//         }
-//     }
-// }
+export const googleProvider = new GoogleAuthProvider()
